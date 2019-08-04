@@ -99,7 +99,6 @@ else:
     exit()
 
 #Search either Box Sync or Box Drive directories for Box Notes
-print(glob_filter)
 boxnotes_to_convert=(glob.glob(glob_filter,recursive=True))
 
 for boxnote_file_name in boxnotes_to_convert:
