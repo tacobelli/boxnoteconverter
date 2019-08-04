@@ -21,8 +21,11 @@ run_mode = int(input('Please enter your selection: '))
 if run_mode == 1:
     # Define the box note file name
     print("What is the full path of the directory to scan?")
-    print("IMPORTANT: On Windows, all back slashes (\\) must be escaped. Regardless of platform, DO NOT end in a trailing slash")
+    print("IMPORTANT: On Windows, all back slashes (\\) must be escaped.")
+    print("Do not escape spaces in file names.")
     directory_to_search = input("")
+    if (directory_to_search[-1:] == "/") or (directory_to_search[-1:] =="\\"):
+        directory_to_search=directory_to_search[:-1]
     platform_name = platform.system()
     if platform_name == "Windows":
         glob_filter = str(directory_to_search + '\\**\\*.boxnote')
@@ -96,6 +99,7 @@ else:
     exit()
 
 #Search either Box Sync or Box Drive directories for Box Notes
+print(glob_filter)
 boxnotes_to_convert=(glob.glob(glob_filter,recursive=True))
 
 for boxnote_file_name in boxnotes_to_convert:
