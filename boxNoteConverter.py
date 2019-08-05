@@ -69,7 +69,7 @@ elif run_mode == 3:
     print('Checking if the Box Sync Folder exist in its default directory')
     # Get the platform name of what we are running on so we can find the default box sync directory
     platform_name = platform.system()
-
+    print(platform_name)
     #Find the Default Box Sync Directory on Windows
     if platform_name == "Windows":
         box_sync_default_path = str('C:\\Users\\' + username + '\Box Sync')
@@ -100,11 +100,16 @@ else:
 
 #Search either Box Sync or Box Drive directories for Box Notes
 boxnotes_to_convert=(glob.glob(glob_filter,recursive=True))
-
+print(boxnotes_to_convert)
 for boxnote_file_name in boxnotes_to_convert:
     # Open The Box Note file in read only mode
     print('Converting ',boxnote_file_name)
-    raw_file = open(boxnote_file_name, "r")
+    
+    #Windows uses UTF-8, so we have to set that as necessary
+    if platform_name == "Windows":
+        raw_file = open(boxnote_file_name, "r",encoding='utf-8')
+    elif platform_name == "Darwin":
+        raw_file = open(boxnote_file_name, "r")
 
     # Read the file
     file = raw_file.read()
